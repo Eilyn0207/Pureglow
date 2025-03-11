@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Editar Venta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+    <style>
+        #productTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        #productTable th, #productTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #productTable th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body class="body">
+<nav>
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Vendedor</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/sellerDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                    <span class="sidebar--item">Menú</span>
+                </a>
+            </li>
+            <li>
+                <a href="/sellerVentas.html">
+                    <span class="icon icon-2"><i class="ri-bank-card-line"></i></span>
+                    <span class="sidebar--item">Mis Ventas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-container">
+        <h2 style="text-align: center">Editar Venta</h2><br>
+        <form id="ventaForm">
+            <input type="hidden" id="idVendedor" name="idVendedor">
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <select id="cliente" name="cliente" class="form-select mt-2" required>
+                    <option value="">Selecciona un cliente</option>
+                </select>
+            </div>
+            <br>
+
+            <h3>Productos</h3>
+            <table id="productTable">
+                <button type="button" id="addProductBtn" class="btn btn-primary">+</button>
+                <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody id="productTableBody">
+                </tbody>
+            </table>
+            <br>
+            <button type="submit" class="btn btn-success">Guardar Cambios</button> &nbsp; &nbsp;
+            <button type="button" class="btn logout-button" onclick="window.location.href='/sellerVentas.html'">
+                Cancelar &nbsp;<i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </form>
+    </div>
+</section>
+
+<footer id="contactenos">
+    <div class="footer-content">
+        <div class="footer-left">
+            <span class="footer-title">Contactos</span>
+            <div class="contact-info">
+                <i class="fa-solid fa-envelope"></i>
+                <span>jaiderniko2@gmail.com</span>
+            </div>
+            <div class="contact-info">
+                <i class="fa-solid fa-phone"></i>
+                <span>3105562981</span>
+            </div>
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://x.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-x"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <div class="message-form">
+                <h3>Envía un mensaje</h3>
+                <form id="messageForm">
+                    <input type="email" id="email" placeholder="Ingresa tu email" required>
+                    <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">
+        <span>2024 - © PureGlow</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchClients();
+        fetchProducts();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const saleId = urlParams.get('id');
+
+        if (saleId) {
+            fetchSaleDetails(saleId);
+        } else {
+            console.error("No se proporcionó el ID de la venta.");
+        }
+
+        document.getElementById('ventaForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            updateSale(saleId);
+        });
+
+        document.getElementById('addProductBtn').addEventListener('click', addProductRow);
+    });
+
+    let productList = [];
+
+    function fetchClients() {
+        fetch("/client/all")
+            .then(response => response.json())
+            .then(clients => {
+                let clienteSelect = document.getElementById("cliente");
+                clienteSelect.innerHTML = '<option value="">Selecciona un cliente</option>';
+                clients.forEach(client => {
+                    let option = document.createElement("option");
+                    option.value = client.id;
+                    option.textContent = client.user.email;
+                    clienteSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error("Error al obtener los clientes:", error));
+    }
+
+    function fetchProducts() {
+        fetch("/product/all")
+            .then(response => response.json())
+            .then(products => {
+                productList = products;
+            })
+            .catch(error => console.error("Error al obtener los productos:", error));
+    }
+
+    function fetchSaleDetails(saleId) {
+        fetch(`/sale/findId/${saleId}`)
+            .then(response => response.json())
+            .then(sale => {
+                fillForm(sale);
+            })
+            .catch(error => console.error("Error al obtener los detalles de la venta:", error));
+    }
+
+    function fillForm(sale) {
+        document.getElementById('cliente').value = sale.client.id;
+        sale.saleDetails.forEach(detail => {
+            addProductRow(detail.product.id, detail.amount);
+        });
+    }
+
+    function addProductRow(productId = null, amount = 1) {
+        let productTableBody = document.getElementById("productTableBody");
+        let row = document.createElement("tr");
+
+        let productCell = document.createElement("td");
+        let select = document.createElement("select");
+        select.classList.add("form-select");
+        select.innerHTML = '<option value="">Selecciona un producto</option>';
+        productList.forEach(product => {
+            let option = document.createElement("option");
+            option.value = product.id;
+            option.textContent = `${product.name} - $${product.price.toFixed(2)}`;
+            select.appendChild(option);
+        });
+        if (productId) {
+            select.value = productId;
+        }
+        productCell.appendChild(select);
+
+        let amountCell = document.createElement("td");
+        let amountInput = document.createElement("input");
+        amountInput.type = "number";
+        amountInput.min = "1";
+        amountInput.value = amount;
+        amountCell.appendChild(amountInput);
+
+        let deleteCell = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Eliminar";
+        deleteButton.classList.add("btn", "btn-danger");
+        deleteButton.addEventListener("click", function() {
+            removeProductRow(row);
+        });
+        deleteCell.appendChild(deleteButton);
+
+        row.appendChild(productCell);
+        row.appendChild(amountCell);
+        row.appendChild(deleteCell);
+        productTableBody.appendChild(row);
+    }
+
+    function removeProductRow(row) {
+        row.remove();
+    }
+
+    function updateSale(saleId) {
+        let sellerId = "";
+        let usuarioData = localStorage.getItem("user");
+            if (usuarioData) {
+                let usuario = JSON.parse(usuarioData);
+                if (usuario.user && usuario.user.seller && usuario.user.seller.id) {
+                    sellerId = usuario.user.seller.id;
+                } else {
+                    console.error("No se encontró el ID del vendedor en el localStorage.");
+                }
+            }
+        let clientId = document.getElementById("cliente").value;
+        let products = [];
+
+        document.querySelectorAll("#productTableBody tr").forEach(row => {
+            let productId = row.cells[0].querySelector("select").value;
+            let amount = parseInt(row.cells[1].querySelector("input").value);
+            if (productId && amount > 0) {
+                products.push({ product: { id: parseInt(productId), amount: amount }});
+            }
+        });
+
+        let sale = {
+            data: {
+                client: { id: parseInt(clientId) },
+                seller: { id: parseInt(sellerId) },
+                products: products
+            }
+        };
+
+        fetch(`/sale/update/${saleId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(sale)
+        })
+        .then(response => {
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Venta actualizada',
+                    text: 'La venta ha sido actualizada exitosamente.',
+                    icon: 'success', confirmButtonText: 'Aceptar'
+                    })
+                    .then(() => {
+                        window.location.href = '/sellerVentas.html';
+                    });
+            } else {
+                Swal.fire({ title: 'Error', text: 'Hubo un error al actualizar la venta.', icon: 'error', confirmButtonText: 'Aceptar' });
+            }
+        })
+        .catch(error => console.error('Error al actualizar la venta:', error));
+    }
+</script>
+<script>
+    let usuarioData = localStorage.getItem('user');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+        }
+    }
+
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user');
+        window.location.href = '../index.html';
+    });
+</script>
+</body>
+</html>

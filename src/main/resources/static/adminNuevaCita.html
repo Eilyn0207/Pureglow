@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Nueva Cita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<nav>
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Administrador</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/adminDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                    <span class="sidebar--item">Menú</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminProductos.html">
+                    <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Productos</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminCitas.html">
+                    <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+                    <span class="sidebar--item">Citas</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminUsers.html">
+                    <span class="icon icon-2"><i class="ri-user-fill"></i></span>
+                    <span class="sidebar--item">Usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminVentas.html">
+                    <span class="icon icon-2"><i class="ri-money-dollar-circle-line"></i></span>
+                    <span class="sidebar--item">Ventas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-container">
+        <h2>Nueva Cita</h2><br>
+
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="dateTime">Fecha y Hora:</label>
+                <input type="datetime-local" id="dateTime" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <select class="form-select mt-2" aria-label="Default select example" id="description" required>
+                    <option value="">Selecciona una descripción</option>
+                    <option value="Masaje Facial">Masaje Facial</option>
+                    <option value="Tratamiento de Piel">Tratamiento de Piel</option>
+                    <option value="Limpieza Profunda">Limpieza Profunda</option>
+                    <option value="Sesion de Microdermoabrasion">Sesion de Microdermoabrasion</option>
+                    <option value="Depilacion">Depilacion</option>
+                    <option value="Tratamiento de Acné">Tratamiento de Acné</option>
+                    <option value="Rejuvenecimiento Facial">Rejuvenecimiento Facial</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="client">Cliente:</label>
+                <select id="client" class="form-control" required>
+                    <option value="">Selecciona una descripción</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="trainer">Capacitador:</label>
+                <select id="trainer" class="form-control" required>
+                    <option value="">Selecciona una descripción</option>
+                </select>
+            </div><br>
+
+            <button type="submit" class="btn btn-success">Guardar Cita &nbsp;<i class="fa-solid fa-floppy-disk"></i></button>&nbsp;
+            <button type="button" class="btn logout-button" onclick="window.location.href='adminCitas.html'">Cancelar  &nbsp;<i class="fa-solid fa-arrow-left"></i></button>
+        </form>
+    </div>
+</section>
+
+<footer id="contactenos">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchClientsAndTrainers();
+
+        document.getElementById('appointmentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            addAppointment();
+        });
+    });
+
+    function fetchClientsAndTrainers() {
+        Promise.all([
+            fetch('/client/all').then(response => response.json()),
+            fetch('/trainer/all').then(response => response.json())
+        ])
+            .then(([clients, trainers]) => {
+                populateSelect('client', clients);
+                populateSelect('trainer', trainers);
+            })
+            .catch(error => console.error("Error al obtener clientes y capacitadores:", error));
+    }
+
+    function populateSelect(selectId, data) {
+        const select = document.getElementById(selectId);
+        data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.text = item.user.name + ' ' + item.user.lastName;
+            select.appendChild(option);
+        });
+    }
+
+    function addAppointment() {
+        const dateTime = document.getElementById('dateTime').value;
+        const description = document.getElementById('description').value;
+        const clientId = document.getElementById('client').value;
+        const trainerId = document.getElementById('trainer').value;
+
+        const appointmentData = {
+            data: {
+                dateTime: dateTime,
+                description: description,
+                client: {
+                    id: clientId
+                },
+                trainer: {
+                    id: trainerId
+                }
+            }
+        };
+
+        fetch(`/appointment/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(appointmentData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Cita creada',
+                        text: 'La cita ha sido creada exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        window.location.href = 'adminCitas.html';
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al crear la cita. Por favor, inténtalo de nuevo.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error al crear la cita. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+    }
+</script>
+<script>
+    let usuarioData = localStorage.getItem('user');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+        }
+    }
+
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user');
+        window.location.href = '../index.html';
+    });
+</script>
+</body>
+</html>

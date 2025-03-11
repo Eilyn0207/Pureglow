@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/estilosFormulario.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="body">
+<nav>
+    <!-- Logo -->
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+
+    <!-- Nombre de la marca -->
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+
+    <!-- Nombre del usuario -->
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+
+    <!-- Botón de Cerrar Sesión -->
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Administrador</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/adminDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                    <span class="sidebar--item">Menú</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminProductos.html">
+                    <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Productos</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminCitas.html">
+                    <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+                    <span class="sidebar--item">Citas</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminUsers.html">
+                    <span class="icon icon-2"><i class="ri-user-fill"></i></span>
+                    <span class="sidebar--item">Usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminVentas.html">
+                    <span class="icon icon-2"><i class="ri-money-dollar-circle-line"></i></span>
+                    <span class="sidebar--item">Ventas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="form-container">
+        <h2>Agregar Usuario</h2><br>
+        <form id="addUserForm">
+            <div class="form-group">
+                <label class="form-label">Rol:</label>
+                <div class="roles-container" id="roles-container">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Digite su Nombre" required minlength="2" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Digite su Apellido" required minlength="2" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" class="form-control" placeholder="Digite su Correo" required>
+            </div>
+            <div class="form-group" id="address-group" style="display: none;">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" class="form-control" placeholder="Digite su Dirección">
+            </div>
+            <div class="form-group" id="area-asignada-group" style="display: none;">
+                <label for="area_asignada">Área Asignada:</label>
+                <input type="text" id="area_asignada" class="form-control" placeholder="Digite el Área Asignada">
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="number" id="telefono" name="telefono" class="form-control" placeholder="Digite su Teléfono Celular" required minlength="8" maxlength="10">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Digite su Contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-success" onclick="window.location.href='/adminUsers.html'">Cancelar</button>
+        </form>
+    </div>
+</section>
+
+<footer id="contactenos">
+    <div class="footer-content">
+        <div class="footer-left">
+            <span class="footer-title">Contactos</span>
+            <div class="contact-info"><i class="fa-solid fa-envelope"></i> <span>jaiderniko2@gmail.com</span></div>
+            <div class="contact-info"><i class="fa-solid fa-phone"></i> <span>3105562981</span></div>
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://x.com" target="_blank" class="social-icon"><i class="fa-brands fa-x"></i></a>
+                <a href="https://instagram.com" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/3105562981" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">
+        <span>2024 - © PureGlow</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Obtener el nombre del usuario desde el localStorage
+    let usuarioData = localStorage.getItem('user');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+
+        // Verifica si tiene el objeto user y extrae el nombre
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+        }
+    }
+
+    // Evento para cerrar sesión
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user'); // Eliminar usuario del localStorage
+        window.location.href = 'index.html'; // Redirigir a la página de login
+    });
+</script>
+<script>
+    // Cargar roles dinámicamente
+    fetch('/role/all')
+        .then(response => response.json())
+        .then(roles => {
+            const rolesContainer = document.getElementById('roles-container');
+            roles.forEach(rol => {
+                const roleItem = document.createElement('div');
+                roleItem.className = 'role-item';
+                roleItem.innerHTML = `
+                        <input type="radio" name="rol" value="${rol.id}" id="rol-${rol.id}" required>
+                        <label for="rol-${rol.id}">${rol.name}</label>
+                    `;
+                rolesContainer.appendChild(roleItem);
+
+                // Mostrar campos adicionales según el rol seleccionado
+                document.getElementById(`rol-${rol.id}`).addEventListener('change', function() {
+                    const isCliente = rol.name === 'CLIENTE';
+                    const isVendedor = rol.name === 'VENDEDOR';
+                    document.getElementById('address-group').style.display = isCliente ? 'block' : 'none';
+                    document.getElementById('area-asignada-group').style.display = isVendedor ? 'block' : 'none';
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los roles:', error);
+        });
+
+
+    // Manejar el envío del formulario
+    document.getElementById('addUserForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Obtener el rol seleccionado
+        const rolSeleccionado = document.querySelector('input[name="rol"]:checked');
+        if (!rolSeleccionado) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor, selecciona un rol.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Construir el objeto JSON
+        const formData = {
+            data: {
+                name: document.getElementById('nombre').value,
+                last_name: document.getElementById('apellido').value,
+                email: document.getElementById('correo').value,
+                address: document.getElementById('direccion').value,
+                area_asignada: document.getElementById('area_asignada').value,
+                phone_number: document.getElementById('telefono').value,
+                password: document.getElementById('password').value,
+                rol: {
+                    id: rolSeleccionado.value
+                }
+            }
+        };
+
+        // Añadir campos adicionales según el rol
+        const rolLabel = document.querySelector(`label[for="rol-${rolSeleccionado.value}"]`).textContent;
+        if (rolLabel === 'CLIENTE') {
+            formData.data.address = document.getElementById('direccion').value;
+        } else if (rolLabel === 'VENDEDOR') {
+            formData.data.area_asignada = document.getElementById('area_asignada').value;
+        }
+
+        // Enviar la solicitud POST
+        fetch('/user/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                return response.text();
+            })
+            .then(data => {
+                if (data === "usuarios guardado exitosamente.") {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: 'Usuario guardado exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        window.location.href = 'adminUsers.html';
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: data,
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al guardar el usuario: ' + error.message,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+    });
+</script>
+</body>
+</html>

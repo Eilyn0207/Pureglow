@@ -1,0 +1,319 @@
+/* Contenedor principal de la página */
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ecfffe; /* Fondo claro */
+    min-height: 100%; /* Asegura que el body ocupe toda la altura */
+}
+
+/* Asegura que el contenedor del formulario tenga espacio adecuado y esté centrado */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea el formulario hacia la parte superior */
+    padding: 20px 0; /* Espaciado arriba y abajo */
+    flex-direction: column; /* Alinea el contenido en columna */
+    min-height: calc(100vh - 100px); /* Asegura que el contenedor no sobrepase la altura de la pantalla */
+}
+
+/* Ajustes para el formulario */
+.form-container {
+    width: 50%; /* Establece el tamaño del formulario al 50% del ancho */
+    max-width: 600px; /* Limita el tamaño máximo a 600px */
+    background-color: #befffc;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #fff455;
+    margin-top: 35px; /* Espaciado arriba */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    flex: 0 1 auto; /* Permite que el formulario crezca si es necesario */
+    margin-bottom: 35px; /* Espacio para el footer */
+    transform: translateX(70%); /* Mueve el formulario 10% a la derecha */
+}
+
+
+/* Título centrado */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Estilo de las columnas del formulario */
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Espaciado entre las columnas */
+}
+
+.form-column-left, .form-column-right {
+    width: 48%; /* Cada columna ocupa el 48% */
+}
+
+/* Estilo de los campos del formulario */
+.form-group {
+    margin-bottom: 20px; /* Espacio entre campos */
+}
+
+/* Estilo de las etiquetas (labels) */
+.form-container label {
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    margin-bottom: 8px;
+    color: rgb(0, 0, 0);
+    display: block;
+}
+
+/* Estilo de los campos de entrada */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container input[type="number"]  {
+    width: 100%; /* Ancho completo */
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 2px solid #fff455;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+/* Estilo para el botón de envío */
+.form-container button[type="submit"] {
+    background-color: #ecfffe;
+    color: rgb(0, 0, 0);
+    padding: 12px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #9ccfcd;
+}
+/* Estilos para el campo de archivo (input de tipo file) */
+.form-group input[type="file"] {
+    font-size: 16px;
+    padding: 5px 15px;
+    border: 2px solid #fff455; /* Borde similar a los demás campos */
+    border-radius: 5px;
+    background-color: transparent; /* Fondo transparente */
+    color: #333; /* Texto oscuro para el campo */
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 15px; /* Espaciado abajo */
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Estilos para el input de tipo file */
+.form-group input[type="file"] {
+    font-size: 0px;
+    padding: 1px 5px;
+    border: 2px solid #fff455; /* Borde similar a los demás campos */
+    border-radius: 5px;
+    background-color: transparent; /* Fondo transparente */
+    color: #333; /* Texto oscuro para el campo */
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 20px; /* Espaciado abajo */
+    font-family: 'Quicksand', sans-serif;
+    opacity: 0; /* Ocultamos el campo real del archivo */
+}
+
+/* Contenedor principal de los roles */
+.roles-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los roles se ajusten en múltiples filas */
+    justify-content: center; /* Centra los roles horizontalmente */
+    gap: 20px; /* Espaciado entre cada rol */
+    margin-top: 35px;
+    padding: 20px;
+    background-color: #f5f5f5; /* Fondo suave para resaltar los roles */
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #fff455;
+}
+
+/* Estilo para cada tarjeta de rol */
+.role-card {
+    background-color: #befffc; /* Color consistente con el formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 280px; /* Tamaño uniforme para todas las tarjetas */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #fff455;
+}
+
+/* Efecto hover para las tarjetas de rol */
+.role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Título del rol */
+.role-card h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Descripción del rol */
+.role-card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Botón para seleccionar rol */
+.role-card button {
+    background-color: #fff455;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.role-card button:hover {
+    background-color: #ffdf00;
+}
+
+/* Iconos para los roles */
+.role-icon {
+    font-size: 3rem;
+    color: #5ba4a4; /* Color consistente con el estilo */
+    margin-bottom: 10px;
+}
+
+/* Asegura que las tarjetas se mantengan bien alineadas en pantallas pequeñas */
+@media (max-width: 768px) {
+    .role-card {
+        width: 90%; /* Se expande al 90% en pantallas pequeñas */
+    }
+}
+
+
+
+/* Estilo del label que actúa como contenedor */
+.file-upload-label {
+    display: inline-block;
+    width: 100%;
+    padding: 5px 5px;
+    background-color: transparent;
+    border: 2px solid #fff455; /* Igual que el borde de los otros campos */
+    color: #333;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Estilo para el texto dentro del label */
+.file-upload-label span {
+    display: block;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Efecto hover para el label */
+.file-upload-label:hover {
+    background-color: #f5f5f5; /* Cambio de color al pasar el ratón */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+/* Efecto hover para el ícono de imagen */
+.fas fa-image {
+    color: #5ba4a4; /* Cambio de color al pasar el ratón */
+    transform: scale(1.1); /* Agrandamiento del ícono */
+    font-size: 60px; /* Hacemos el ícono más grande */
+}
+/* Estilo para la imagen de edición */
+.image-edit {
+    display: block; /* Asegura que la imagen sea un bloque y ocupe su propio espacio */
+    margin: 20px auto; /* Centra la imagen en su contenedor y le da margen superior e inferior */
+    border-radius: 10px; /* Bordes redondeados para suavizar la imagen */
+    border: 3px solid #fff455; /* Borde dorado que coincide con el estilo del formulario */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidad */
+    max-width: 200px; /* Limita el tamaño máximo para que no se haga demasiado grande */
+    max-height: 200px; /* Igual que el ancho, limita la altura para mantener las proporciones */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación para el efecto hover */
+}
+
+/* Estilo general para la sección de imagen del producto */
+.image-upload-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra la imagen y los elementos dentro */
+    justify-content: center;
+    border: 2px solid #fff455; /* Borde dorado para la caja */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px;
+    background-color: #f5f5f5; /* Fondo suave para destacar la imagen */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+    margin-bottom: 10px; /* Espaciado inferior para separar de otros elementos */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones de transición */
+}
+/* Estilo general para el contenedor de la imagen */
+.image-upload-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos dentro del contenedor */
+    justify-content: center; /* Centra los elementos dentro del contenedor */
+    border: 2px solid #fff455; /* Borde dorado para mantener la consistencia con el formulario */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px;
+    background-color: #f5f5f5; /* Fondo suave */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+    margin-bottom: 10px; /* Espaciado inferior para separar de otros elementos */
+    width: 45%; /* Asegura que ocupe el 100% del espacio disponible */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación de transición para efectos */
+}
+
+/* Efecto hover para el contenedor de la imagen */
+.image-upload-center:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento suave */
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2); /* Aumenta la sombra para dar interactividad */
+}
+
+/* Estilo para la imagen del producto */
+.image-upload-center img {
+    max-width: 100%; /* Limita el tamaño máximo a 100% del contenedor */
+    max-height: 300px; /* Limita la altura de la imagen para mantener las proporciones */
+    border-radius: 8px; /* Bordes redondeados en la imagen */
+    margin-bottom: 10px; /* Espacio inferior */
+}
+
+/* Estilo para el texto que puede aparecer debajo de la imagen */
+.image-upload-center span {
+    font-size: 1rem;
+    color: #333; /* Color oscuro para el texto */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    text-align: center; /* Centra el texto debajo de la imagen */
+
+}
+
+/* Efecto hover para la imagen */
+.image-upload-center img:hover {
+    opacity: 0.9; /* Opacidad suave al pasar el ratón */
+    transition: opacity 0.3s ease; /* Animación suave */
+}

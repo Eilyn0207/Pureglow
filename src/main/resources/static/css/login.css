@@ -1,0 +1,120 @@
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ecfffe;
+}
+
+/* Contenedor principal para centrar el formulario */
+body, html {
+  height: 100%; 
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  padding: 50px 0; 
+}
+
+/* Estilo para el formulario */
+.form-container {
+  width: 600px; 
+  background-color: #befffc; 
+  padding: 30px; 
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid #fff455; /* Borde dorado */
+  margin-top: 60px; 
+  margin-bottom: 60px; 
+}
+
+/* Título centrado */
+h1 {
+  text-align: center;
+  font-size: 2.5rem; 
+  margin-bottom: 30px; 
+}
+
+/* Contenedor de las dos columnas */
+.form-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px; 
+}
+
+/* Cada columna tiene un ancho del 48% */
+.form-column-left, .form-column-right {
+  width: 48%;
+}
+
+/* Estilo común para cada grupo de campos */
+.form-group {
+  margin-bottom: 20px; /* Espacio entre cada campo */
+}
+
+/* Estilo para las etiquetas (labels) */
+.form-container label {
+  font-size: 1.1rem; 
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 8px; 
+  color: rgb(0, 0, 0);
+  display: block;
+}
+
+/* Estilo para los campos de entrada (inputs) */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container input[type="tel"] {
+  width: 100%; 
+  padding: 8px 15px; /* Inputs más grandes */
+  border-radius: 5px;
+  border: 2px solid #fff455;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem; 
+  margin-top: 5px;
+}
+
+/* Estilo para la contraseña */
+.password-container {
+  position: relative;
+}
+
+* Contraseña con ícono */
+.password-container {
+    position: relative;
+}
+
+.password-container input[type="password"] {
+    padding-right: 40px; /* Espacio para el icono */
+}
+
+.password-container .fa-eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Estilo para el botón de envío */
+.form-container button[type="submit"] {
+  background-color: #ecfffe;
+  color: rgb(0, 0, 0);
+  padding: 12px 18px; /* Botón más grande */
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem; /* Ajustamos el tamaño del botón */
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 25px; /* Más espacio arriba del botón */
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #9ccfcd; 
+}

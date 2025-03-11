@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Editar Producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<nav>
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Administrador</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/adminDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                    <span class="sidebar--item">Menú</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminProductos.html">
+                    <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Productos</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminCitas.html">
+                    <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+                    <span class="sidebar--item">Citas</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminUsers.html">
+                    <span class="icon icon-2"><i class="ri-user-fill"></i></span>
+                    <span class="sidebar--item">Usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminVentas.html">
+                    <span class="icon icon-2"><i class="ri-money-dollar-circle-line"></i></span>
+                    <span class="sidebar--item">Ventas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-container">
+        <h2>Editar Producto</h2><br>
+
+        <form id="productForm">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" class="form-control" placeholder="Nombre del producto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" class="form-control" placeholder="Descripción del producto" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Precio:</label>
+                <input type="number" id="price" class="form-control" placeholder="Precio del producto" required>
+            </div><br>
+
+            <div class="form-group">
+                <label for="imageInput">Imagen:</label>
+                <input type="file" id="imageInput" class="form-control" accept="image/*">
+            </div><br>
+            <img id="productImage" src="" alt="Imagen del producto" style="max-width: 200px; display: none;">
+
+            <button type="submit" class="btn btn-success">Guardar Cambios &nbsp;<i class="fa-solid fa-floppy-disk"></i></button>&nbsp;
+            <button type="button" class="btn logout-button" onclick="window.location.href='adminProductos.html'">Cancelar  &nbsp;<i class="fa-solid fa-arrow-left"></i></button>
+        </form>
+    </div>
+</section>
+
+<footer id="contactenos">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (productId) {
+            fetchProductDetails(productId);
+        } else {
+            console.error("No se proporcionó el ID del producto.");
+        }
+
+        document.getElementById('productForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            updateProduct(productId);
+        });
+    });
+
+    function fetchProductDetails(productId) {
+        fetch(`/product/findId/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                fillForm(product);
+            })
+            .catch(error => console.error("Error al obtener los detalles del producto:", error));
+    }
+
+    function fillForm(product) {
+        document.getElementById('name').value = product.name;
+        document.getElementById('description').value = product.description;
+        document.getElementById('price').value = product.price;
+        if (product.imagen) {
+            document.getElementById('productImage').src = `data:image/png;base64,${arrayBufferToBase64(product.imagen)}`;
+            document.getElementById('productImage').style.display = 'block';
+        }
+    }
+
+    function updateProduct(productId) {
+        const name = document.getElementById('name').value;
+        const description = document.getElementById('description').value;
+        const price = parseFloat(document.getElementById('price').value);
+        const fileInput = document.getElementById('imageInput');
+        const file = fileInput.files[0];
+
+        let productData = {
+            data: {
+                name: name,
+                description: description,
+                price: price
+            }
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                const base64Image = reader.result.split(',')[1];
+                productData.data.imagen = base64Image;
+                sendUpdateRequest(productId, productData);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            sendUpdateRequest(productId, productData);
+        }
+    }
+
+    function sendUpdateRequest(productId, productData) {
+        fetch(`/product/update/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Producto actualizado',
+                        text: 'El producto ha sido actualizado exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        window.location.href = 'adminProductos.html';
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al actualizar el producto. Por favor, inténtalo de nuevo.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error al actualizar el producto. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+    }
+
+    function arrayBufferToBase64(buffer) {
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
+    }
+</script>
+<script>
+    let usuarioData = localStorage.getItem('user');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+
+        // Verifica si tiene el objeto user y extrae el nombre
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+        }
+    }
+
+    // Evento para cerrar sesión
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user'); // Eliminar usuario del localStorage
+        window.location.href = 'index.html'; // Redirigir a la página de login
+    });
+</script>
+</body>
+</html>

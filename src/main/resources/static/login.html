@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Iniciar Sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/logo.png">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/estilosFormulario.css">
+
+    <!-- Fuentes y FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="body">
+<div class="container text-center">
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <img src="../img/logo.png" alt="Logo" style="width: 50px; height: auto; margin-left: 15px">
+        <label class="logo">PureGlow</label>
+        <ul>
+            <form style="display: inline;">
+                <button type="button" class="btn logout-button" onclick="window.location.href='/registrar.html'">
+                    Registrar &nbsp;<i class="fa-solid fa-user-plus"></i>
+                </button>
+                <button type="button" class="btn logout-button" onclick="window.location.href='/index.html'">
+                    Atrás &nbsp;<i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </form>
+        </ul>
+    </nav>
+
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2><br>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" class="form-control" placeholder="Digite su Correo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" class="form-control" placeholder="Digite su Contraseña" required minlength="6" maxlength="10">
+            </div>
+
+            <button type="submit" class="btn btn-success">Entrar</button>
+        </form>
+    </div>
+
+    <footer id="contactenos">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div>
+                    <span class="footer-title">Contactos</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>jaiderniko2@gmail.com</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>3105562981</span>
+                </div>
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="message-form">
+                    <h3>Envía un mensaje</h3>
+                    <form id="messageForm">
+                        <input type="email" id="email" placeholder="Ingresa tu email" required>
+                        <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <span>2024 - © PureGlow</span>
+        </div>
+    </footer>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- JavaScript para manejar el login -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            // Obtener valores de los inputs
+            const email = document.getElementById('correo').value;
+            const password = document.getElementById('contraseña').value;
+
+            // Verificar qué datos se están enviando al backend
+            console.log("Datos enviados al backend:", { email, password });
+
+            // Enviar los datos al backend
+            fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                console.log("Respuesta HTTP recibida:", response);
+                return response.json();
+            }) // Convertir la respuesta a JSON
+            .then(data => {
+                console.log("Respuesta del backend:", data); // Verificar el contenido de la respuesta
+
+                if (data.success) {
+
+                localStorage.setItem("user", JSON.stringify({
+                    user: data.user,
+                    role: data.rol,
+                    message: data.message
+
+                }));
+                    Swal.fire({
+                        title: 'Inicio de sesión exitoso',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        // Redirección según el rol
+                        switch (data.rol) {
+                            case "ADMINISTRADOR":
+                                window.location.href = "/adminDashboard.html";
+                                break;
+                            case "CAPACITADOR":
+                                window.location.href = "/trainerDashboard.html";
+                                break;
+                            case "CLIENTE":
+                                window.location.href = "/clientDashboard.html";
+                                break;
+                            case "VENDEDOR":
+                                window.location.href = "/sellerDashboard.html";
+                                break;
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Correo o contraseña incorrectos',
+                        icon: 'error',
+                        confirmButtonText: 'Intentar de nuevo'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema con el inicio de sesión',
+                    icon: 'error',
+                    confirmButtonText: 'Cerrar'
+                });
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Citas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<nav>
+    <!-- Logo -->
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+
+    <!-- Nombre de la marca -->
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+
+    <!-- Nombre del usuario -->
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+
+    <!-- Botón de Cerrar Sesión -->
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+    </nav>
+
+    <section class="header">
+        <div class="logo">
+            <h2> <span>Cliente</span></h2>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="/clientDashboard.html">
+                        <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                        <span class="sidebar--item">Menú</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/clientCatalogo.html">
+                        <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Catálogo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/clientCarrito.html">
+                        <span class="icon icon-2"><i class="ri-shopping-cart-fill"></i></span>
+                        <span class="sidebar--item">Mi Carrito</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/clientCita.html">
+                        <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+                        <span class="sidebar--item">Mis Citas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/clientCompras.html">
+                        <span class="icon icon-2"><i class="ri-bank-card-line"></i></span>
+                        <span class="sidebar--item">Mis Compras</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- Formulario para registrar una nueva venta -->
+        <div class="form-container">
+            <h2>Crear Cita</h2><br>
+
+            <form id="citaFrom">
+
+                <input type="hidden" id="idCliente" name="idCliente">
+                <div class="form-group">
+                    <label for="horaFecha">Hora y Fecha:</label>
+                    <input type="datetime-local" id="horaFecha" class="form-control" placeholder="Ingrese la hora y fecha de la cita." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+                    <select class="form-select mt-2" aria-label="Default select example" id="description" required>
+                        <option value="Masaje Facial">Masaje Facial</option>
+                        <option value="Tratamiento de Piel">Tratamiento de Piel</option>
+                        <option value="Limpieza Profunda">Limpieza Profunda</option>
+                        <option value="Sesion de Microdermoabrasion">Sesion de Microdermoabrasion</option>
+                        <option value="Depilacion">Depilacion</option>
+                        <option value="Tratamiento de Acné">Tratamiento de Acné</option>
+                        <option value="Rejuvenecimiento Facial">Rejuvenecimiento Facial</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trainer">Capacitador:</label>
+                    <select id="trainer" name="trainer" class="form-select mt-2" required>
+                        <option value="">Selecciona un capacitador</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Registrar</button> &nbsp; &nbsp;
+                <button type="button" class="btn logout-button" onclick="window.location.href='/clientCita.html'">
+                    Atrás &nbsp;<i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contactenos">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-title">Contactos</span>
+                <div class="contact-info">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>jaiderniko2@gmail.com</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>3105562981</span>
+                </div>
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="message-form">
+                    <h3>Envía un mensaje</h3>
+                    <form id="messageForm">
+                        <input type="email" id="email" placeholder="Ingresa tu email" required>
+                        <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <span>2024 - © PureGlow</span>
+        </div>
+    </footer>
+
+    <!-- SweetAlert2 Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Obtener el nombre del usuario desde el localStorage
+        let usuarioData = localStorage.getItem('user');
+
+        if (usuarioData) {
+            let usuario = JSON.parse(usuarioData);
+
+            // Verifica si tiene el objeto user y extrae el nombre
+            if (usuario.user && usuario.user.name) {
+                document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+            }
+        }
+
+        // Evento para cerrar sesión
+        document.getElementById('cerrarSesion').addEventListener('click', function() {
+            localStorage.removeItem('user'); // Eliminar usuario del localStorage
+            window.location.href = '../index.html'; // Redirigir a la página de login
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtener el cliente del localStorage
+            let usuarioData = localStorage.getItem("user");
+            if (usuarioData) {
+                let usuario = JSON.parse(usuarioData);
+                if (usuario.user && usuario.user.client && usuario.user.client.id) {
+                    document.getElementById("idCliente").value = usuario.user.client.id;
+                } else {
+                    console.error("No se encontró el ID del cliente en el localStorage.");
+                }
+            }
+
+            // Obtener los trainers de la API
+            fetch("/trainer/all")
+                .then(response => response.json())
+                .then(trainers => {
+                 console.log("Trainers recibidos:", trainers); // Añade esta línea
+                    let trainerSelect = document.getElementById("trainer");
+                    trainers.forEach(trainer => {
+                        let option = document.createElement("option");
+                        option.value = trainer.id;
+                        option.textContent = trainer.user.name+ " " + trainer.user.lastName; // Asumiendo que el nombre está en user.name
+                        trainerSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error al obtener los trainers:", error));
+
+
+            // Manejar el envío del formulario
+            document.getElementById('citaFrom').addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+                // Obtener los valores del formulario
+                let horaFecha = document.getElementById('horaFecha').value;
+                let description = document.getElementById('description').value;
+                let trainerId = document.getElementById('trainer').value;
+                let clienteId = document.getElementById('idCliente').value;
+
+                // Crear el objeto de cita
+                let cita = {
+                    data: {
+                        dateTime: horaFecha,
+                        description: description,
+                        trainer: { id: parseInt(trainerId) }, // Asegurar que sea un número
+                        client: { id: parseInt(clienteId) }  // Asegurar que sea un número
+                    }
+                };
+
+                // Enviar la cita al servidor
+                fetch('/appointment/add', { // Reemplaza con la URL correcta de tu backend
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cita)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // La cita se creó correctamente
+                        Swal.fire({
+                            title: 'Cita creada',
+                            text: 'Tu cita ha sido creada exitosamente.',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then(() => {
+                            // Limpiar el formulario o redirigir a otra página
+                            //document.getElementById('citaFrom').reset();
+                            window.location.href = '/clientCita.html'; // Por ejemplo
+                        });
+                    } else {
+                        // Hubo un error al crear la cita
+                        console.error('Error al crear la cita');
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Hubo un error al crear la cita. Por favor, inténtalo de nuevo.',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al crear la cita:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al crear la cita. Por favor, inténtalo de nuevo.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

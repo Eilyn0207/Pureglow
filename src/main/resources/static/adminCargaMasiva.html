@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>PureGlow - Carga Masiva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/img/logo.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<nav>
+  <!-- Logo -->
+  <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+
+  <!-- Nombre de la marca -->
+  <h2 style="margin:0px 15px">Pure Glow</h2>
+
+  <!-- Nombre del usuario -->
+  <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+
+  <!-- Botón de Cerrar Sesión -->
+  <button id="cerrarSesion" class="btn logout-button">
+    Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+  </button>
+</nav>
+
+<section class="header">
+  <div class="logo">
+    <h2> <span>Administrador</span></h2>
+  </div>
+</section>
+
+<section class="main">
+  <div class="sidebar">
+    <ul class="sidebar--items">
+      <li>
+        <a href="/adminDashboard.html">
+          <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+          <span class="sidebar--item">Menú</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminProductos.html">
+          <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+          <span class="sidebar--item">Productos</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminCitas.html">
+          <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+          <span class="sidebar--item">Citas</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminUsers.html">
+          <span class="icon icon-2"><i class="ri-user-fill"></i></span>
+          <span class="sidebar--item">Usuarios</span>
+        </a>
+      </li>
+      <li>
+        <a href="/adminVentas.html">
+          <span class="icon icon-2"><i class="ri-money-dollar-circle-line"></i></span>
+          <span class="sidebar--item">Ventas</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-container">
+    <h2>Carga Masiva de Productos</h2><br>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="excelFile">Selecciona un archivo Excel:</label>
+        <input type="file" id="excelFile" name="file" accept=".xlsx, .xls" required>
+      </div><br>
+
+      <button type="submit" class="btn btn-success">Subir y Procesar</button>&nbsp;
+      <button type="button" class="btn logout-button" onclick="window.location.href='adminProductos.html'">Cancelar</button>
+    </form>
+  </div>
+</section>
+
+<footer id="contactenos">
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.getElementById('uploadForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const formData = new FormData();
+      const fileInput = document.getElementById('excelFile');
+      formData.append('file', fileInput.files[0]);
+
+      fetch('/product/uploadExcel', {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => response.text())
+      .then(message => {
+          Swal.fire({
+              title: 'Éxito',
+              text: message,
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+          }).then(() => {
+              window.location.href = 'adminProductos.html';
+          });
+      })
+      .catch(error => {
+          Swal.fire({
+              title: 'Error',
+              text: 'Hubo un error al procesar el archivo.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+          });
+          console.error('Error:', error);
+      });
+  });
+</script>
+</body>
+</html>

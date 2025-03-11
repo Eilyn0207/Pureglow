@@ -1,0 +1,482 @@
+/* FONTS GOOGLE */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #ecfffe;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el footer esté al final */
+}
+
+/* Estilos del Navegador */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 50px;
+  z-index: 1000;
+  background-color: #C2FFFE;
+  color: #000;
+}
+
+label.logo {
+  color: rgb(0, 0, 0);
+  font-size: 35px;
+  line-height: 80px;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a {
+  color: rgb(0, 0, 0);
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+a.active, a:hover {
+  background: #a1d4dd;
+  transition: 0.4s;
+  border-radius: 55px;
+  color: white;
+  padding: 10px;
+}
+
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 20px;
+  background-color: #f8f9fa; /* Color suave de fondo */
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+  padding: 15px;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #343a40;
+}
+
+.btn-close {
+  background-color: #fff;
+  border: none;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.input-group input[type="file"],
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+}
+
+.alert {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+
+.checkbtn {
+  font-size: 30px;
+  color: #fff;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+@media (max-width: 952px) {
+  label.logo {
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+  }
+  nav ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #89bec7;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  a:hover, a.active {
+    background: none;
+    color: #000;
+  }
+  #check:checked ~ nav ul {
+    left: 0;
+  }
+}
+
+/* Estilos del Header */
+header {
+  padding: 40px 50px 20px; /* Ajuste para evitar superposición con la imagen */
+  text-align: left;
+  z-index: 999; /* Asegura que esté por encima de la imagen */
+  position: relative; /* Asegura que se ajuste al flujo del documento */
+}
+
+header h1 {
+  font-size: 7rem;
+}
+
+header p {
+  margin-top: 20px;
+  font-size: 1.8rem;
+}
+
+/* Estilos de la Imagen */
+.pure {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: 0 0 0 auto; /* Alinea la imagen a la derecha */
+  display: block;
+  z-index: 999;
+  position: relative;
+}
+
+footer {
+  width: 100%; /* Hace que el footer ocupe todo el ancho de la pantalla */
+  background-color: #C2FFFE;
+  padding: 20px 0; /* Ajusta el padding para mayor espaciado */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Añade un padding horizontal para que el contenido no toque los bordes */
+}
+
+.footer-left,
+.footer-right {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.footer-title {
+  font-size: 2rem;
+  font-family: 'Quicksand', sans-serif;
+  color: #000;
+  border-top: 2px solid #FFD700;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.contact-info i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.social-media {
+  margin: 20px 0;
+}
+
+.social-icon {
+  color: #000;
+  font-size: 24px;
+  margin: 0 10px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #8391a3;
+  transform: scale(1.1);
+}
+
+.message-form h3 {
+  font-size: 1.5rem;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.message-form input[type="email"],
+.message-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #FFD700;
+  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.message-form button {
+  padding: 10px;
+  background-color: #FFD700;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.message-form button:hover {
+  background-color: #E5BF00;
+}
+
+.footer-copy {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Estilo responsive para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .footer-content {
+      flex-direction: column;
+      align-items: center;
+      padding: 0; /* Elimina el padding horizontal extra en pantallas pequeñas */
+  }
+
+  .footer-left,
+  .footer-right {
+      padding: 0;
+      text-align: center;
+  }
+
+  .footer-copy {
+      font-size: 12px;
+  }
+}
+
+
+
+
+/* Estilos para el botón */
+.btn {
+  background-color: #b0fffb;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #8cb7be;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #8cb7be;
+  transform: scale(0.98);
+}
+
+/*Slider*/
+.carousel-item {
+  position: relative;
+  height: 65vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  background-size: cover;
+}
+
+.carousel-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+  z-index: 1;
+}
+
+.carousel-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0; /* Posiciona el texto en la parte inferior */
+  left: 50%; /* Centra horizontalmente el texto */
+  transform: translateX(-50%); /* Ajusta el texto para que esté perfectamente centrado */
+  z-index: 2; /* Asegura que el texto esté por encima del overlay */
+  color: #000000; /* Color del texto blanco para mayor contraste */
+  padding: 10px; /* Espaciado alrededor del texto */
+  text-align: center; /* Centra el texto */
+  border-radius: 5px; /* Bordes redondeados opcionales */
+}
+
+/*Pagination*/
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  padding: 5px 10px;
+  font-size: 0.875rem;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #89bec7;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f1f1;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #89bec7;
+  color: rgb(0, 0, 0);
+  border-color: #89bec7;
+}
+
+/* Estilos para el contenedor de la lista desplegable */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilos para el botón */
+.dropbtn {
+ 
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el contenido desplegable */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #C2FFFE; /* Color de fondo de la lista */
+  min-width: 80px; /* Ancho de la lista */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+/* Estilos para los enlaces dentro del contenido desplegable */
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Cambio de color al pasar el ratón sobre los enlaces */
+.dropdown-content a:hover {
+  background-color: #83eeff;
+}
+
+/* Mostrar el contenido desplegable al pasar el ratón sobre el botón */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Cambio de color del botón al pasar el ratón */
+.dropdown:hover .dropbtn {
+  background-color: #83eeff; /* Cambia el color según tu diseño */
+}

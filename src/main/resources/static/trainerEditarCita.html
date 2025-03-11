@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Editar Cita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<nav>
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Editar Cita</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/trainerDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-line"></i></span>
+                    <span class="sidebar--item">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/trainerCitas.html">
+                    <span class="icon icon-2"><i class="ri-calendar-line"></i></span>
+                    <span class="sidebar--item">Mis Citas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-container">
+        <h2>Editar Cita</h2><br>
+
+        <form id="citaForm">
+            <input type="hidden" id="citaId" name="citaId">
+            <input type="hidden" id="trainerId" name="trainerId">
+
+            <div class="form-group">
+                <label for="horaFecha">Hora y Fecha:</label>
+                <input type="datetime-local" id="horaFecha" class="form-control" placeholder="Ingrese la hora y fecha de la cita." required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <select class="form-select mt-2" aria-label="Default select example" id="description" required>
+                    <option value="Masaje Facial">Masaje Facial</option>
+                    <option value="Tratamiento de Piel">Tratamiento de Piel</option>
+                    <option value="Limpieza Profunda">Limpieza Profunda</option>
+                    <option value="Sesion de Microdermoabrasion">Sesion de Microdermoabrasion</option>
+                    <option value="Depilacion">Depilacion</option>
+                    <option value="Tratamiento de Acné">Tratamiento de Acné</option>
+                    <option value="Rejuvenecimiento Facial">Rejuvenecimiento Facial</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="client">Cliente:</label>
+                <select id="client" name="client" class="form-select mt-2" required disabled>
+                    <option value="">Selecciona un cliente</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button class="btn logout-button"><a href="/trainerCitas.html" style="decoration-text: none;">Cancelar</a></button>
+        </form>
+    </div>
+</section>
+
+<footer id="contactenos">
+    <div class="footer-content">
+    </div>
+    <div class="footer-copy">
+        <span>2024 - © PureGlow</span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    let usuarioData = localStorage.getItem('user');
+    let urlParams = new URLSearchParams(window.location.search);
+    let citaId = urlParams.get('id');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `Hola, ${usuario.user.name}!`;
+            if (usuario.user.trainer && usuario.user.trainer.id) {
+                document.getElementById('trainerId').value = usuario.user.trainer.id;
+            }
+        }
+    }
+
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user');
+        window.location.href = '../index.html';
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/client/all")
+            .then(response => response.json())
+            .then(clients => {
+                let clientSelect = document.getElementById("client");
+                clients.forEach(client => {
+                    let option = document.createElement("option");
+                    option.value = client.id;
+                    option.textContent = client.user.name + " " + client.user.lastName;
+                    clientSelect.appendChild(option);
+                });
+
+                if (citaId) {
+                    console.log("ID de la cita:", citaId);
+
+                    fetch(`/appointment/findId/${citaId}`)
+                        .then(response => response.json())
+                        .then(cita => {
+                            console.log("Datos de la cita:", cita);
+
+                            document.getElementById('citaId').value = cita.id;
+                            document.getElementById('horaFecha').value = cita.dateTime;
+                            document.getElementById('description').value = cita.description;
+
+                            // Establecer el cliente seleccionado
+                            document.getElementById('client').value = cita.client.id;
+                        })
+                        .catch(error => console.error("Error al obtener la cita:", error));
+                }
+            })
+            .catch(error => console.error("Error al obtener los clientes:", error));
+
+        document.getElementById('citaForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let horaFecha = document.getElementById('horaFecha').value;
+            let description = document.getElementById('description').value;
+            let clientId = document.getElementById('client').value;
+            let trainerId = document.getElementById('trainerId').value;
+
+            let cita = {
+                data: {
+                    id: parseInt(citaId),
+                    dateTime: horaFecha,
+                    description: description,
+                    trainer: { id: parseInt(trainerId) },
+                    client: { id: parseInt(clientId) }
+                }
+            };
+
+            fetch(`/appointment/update/${citaId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cita)
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Cita actualizada',
+                        text: 'La cita ha sido actualizada exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        window.location.href = '/trainerCitas.html';
+                    });
+                } else {
+                    console.error('Error al actualizar la cita');
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al actualizar la cita. Por favor, inténtalo de nuevo.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error al actualizar la cita:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error al actualizar la cita. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>

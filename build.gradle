@@ -1,0 +1,55 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.pureGlow'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.json:json:20231013'
+	implementation 'com.itextpdf:itext7-core:7.1.15'
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
+	implementation 'org.apache.poi:poi:5.2.3'
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.named('bootJar') {
+	mainClass = 'com.pureGlow.pureGlow.PureGlowApplication' // Asegúrate de que el paquete es correcto
+}
+
+springBoot {
+	mainClass = 'com.pureGlow.pureGlow.PureGlowApplication'
+}
+

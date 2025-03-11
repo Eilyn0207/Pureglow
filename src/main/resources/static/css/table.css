@@ -1,0 +1,186 @@
+/* Estilos generales para la tabla */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse; /* Eliminar el espaciado entre celdas */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
+    border: 2px solid #e0e0e0; /* Borde gris suave alrededor de toda la tabla */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la tabla */
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: #6aa1aa; /* Color suave para el encabezado */
+    color: #fff;
+    border-bottom: 2px solid #ccc; /* Línea suave debajo del encabezado */
+}
+
+.table th,
+.table td {
+    padding: 12px 20px; /* Más espacio alrededor del texto */
+    text-align: left;
+    border: 1px solid #ddd; /* Borde gris suave entre celdas */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Borde alrededor de las celdas cuando se pasa el ratón */
+.table tbody tr:hover {
+    background-color: #f5f5f5; /* Fondo suave cuando se pasa el ratón */
+    transform: translateY(-2px); /* Efecto de desplazamiento sutil */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para el hover */
+}
+
+.table th {
+    font-weight: bold;
+    font-size: 16px; /* Tamaño de fuente más grande para el encabezado */
+}
+
+.table td {
+    font-size: 14px; /* Tamaño de fuente moderado para las celdas */
+    color: #333; /* Color más oscuro para el texto */
+}
+
+.table .pending {
+    color: #6aa1aa; 
+    font-weight: bold;
+}
+
+.table .confirmed {
+    color: #527f86; 
+    font-weight: bold;
+}
+
+/* Estilo para el botón Editar */
+.edit {
+    background-color: #6aa1aa;
+    border-color: #1e90ff;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 25px; /* Bordes más redondeados */
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.edit:hover {
+    background-color: #4682b4;
+    border-color: #3b7cb5;
+    transform: scale(1.05); /* Efecto de aumento suave al pasar el ratón */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el ratón */
+}
+
+/* Estilo para el botón Eliminar */
+.btn-delete {
+    background-color: #ff6347;
+    border-color: #ff6347;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 25px; /* Bordes más redondeados */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.btn-delete:hover {
+    background-color: #d9534f;
+    border-color: #c9302c;
+    transform: scale(1.05); /* Efecto de aumento suave al pasar el ratón */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el ratón */
+}
+
+.btn-delete:focus, .btn-delete:active {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Estilos del botón */
+.button {
+    position: relative;
+    width: 140px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el espacio entre el texto y el icono */
+    padding: 0 10px; /* Añade un poco de espacio entre el texto y los bordes */
+    border: 1px solid #34974d;
+    background-color: #3aa856;
+    border-radius: 20px; /* Bordes redondeados */
+    overflow: hidden; /* Evita desbordamientos */
+    transition: all 0.3s ease-in-out; /* Transición más suave */
+}
+
+/* Transición general para el texto y el icono */
+.button, .button__icon, .button__text {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estilo del texto dentro del botón */
+.button .button__text {
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* Estilo del icono dentro del botón */
+.button .button__icon {
+    position: absolute;
+    right: 0px; /* Posiciona el icono a la derecha */
+    height: 100%;
+    width: 49px; /* Ancho fijo del icono */
+    background-color: #34974d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out; /* Solo cambios de posición y tamaño */
+}
+
+/* Estilo para el icono SVG */
+.button .svg {
+    width: 24px;
+    stroke: #fff;
+}
+
+/* Efecto de hover en el botón */
+.button:hover {
+    background-color: #34974d; /* Fondo igual */
+}
+
+.button:hover .button__text {
+    color: transparent; /* Hace que el texto se vuelva invisible */
+}
+
+/* El icono se mueve al centro del botón cuando se pasa el cursor */
+.button:hover .button__icon {
+    width: 40px; /* Mantiene el tamaño del icono */
+    transform: translateX(-137%); /* Mueve el icono al centro */
+}
+
+/* Efecto de activación (cuando se hace clic) */
+.button:active .button__icon {
+    background-color: #2e8644; /* Cambio de color del icono */
+}
+
+.button:active {
+    border: 1px solid #2e8644; /* Cambio de borde al hacer clic */
+}
+.table-footer {
+    display: flex;
+    justify-content: relative; /* Centra horizontalmente */
+    align-items: relative;    /* Centra verticalmente */
+    gap: 15px;              /* Espacio entre los botones */
+    margin-top: 20px;       /* Separación del contenido anterior */
+}
+
+.table-footer .btn {
+    padding: 10px 20px;     /* Ajuste del tamaño de los botones */
+    font-size: 16px;        /* Tamaño del texto */
+    text-align: center;     /* Centrar el texto */
+    white-space: nowrap;    /* Evitar que el texto se rompa en varias líneas */
+}

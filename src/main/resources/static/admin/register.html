@@ -1,0 +1,213 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      <head>
+        <meta charset="utf-8">
+        <title>PureGlow</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Favicon -->
+         <link rel="shortcut icon" href="/img/logo.png">
+         
+        <!-- Estilos -->
+        <link rel="stylesheet" href="/css/table.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/estilosFormulario.css">
+
+
+        <!-- Fuentes Remixes y FontAwesome -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="body">
+    <div class="container text-center">
+        <nav>
+            <!-- Logo -->
+            <img src="../img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+
+            <!-- Nombre de la marca -->
+            <h2 style="margin:0px 15px">Pure Glow</h2>
+
+            <!-- Nombre del usuario -->
+            <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+
+            <!-- Botón de Cerrar Sesión -->
+            <button id="cerrarSesion" class="btn logout-button">
+                Cerrar Sesión <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+        </nav>
+
+        <section class="header">
+            <div class="logo">
+                <h2> <span>Administrador</span></h2>
+            </div>
+        </section>
+
+            </div>
+     
+        <section class="main">
+            <div class="sidebar">
+                <ul class="sidebar--items">
+                    <li>
+                        <a href="/admin/dashboardA.html">
+                            <span class="icon icon-1"><i class="ri-dashboard-line"></i></span>
+                            <span class="sidebar--item">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/adminProductos.html">
+                            <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                            <span class="sidebar--item">Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/adminCitas.html">
+                            <span class="icon icon-2"><i class="ri-calendar-line"></i></span>
+                            <span class="sidebar--item">Citas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/adminUsers.html">
+                            <span class="icon icon-2"><i class="ri-calendar-line"></i></span>
+                            <span class="sidebar--item">Usuarios</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        <!-- Formulario para registrar una nueva venta -->
+        <div class="form-container">
+            <h2> Usuario Nuevo</h2><br>
+
+            <form th:action="@{/proceso_registro}" th:object="${usuario}" method="POST" enctype="multipart/form-data">
+                
+                <!-- Producto vendido -->
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" class="form-control" th:field="*{nombre}" placeholder="Digite su Nombre"
+                         required minlength="2" maxlength="20">
+                </div>
+
+                <!-- Cantidad vendida -->
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" name="apellido" class="form-control" th:field="*{apellido}" placeholder="Digite su Apellido"
+                         required minlength="2" maxlength="20">
+                </div>
+
+                <!-- Precio de la venta -->
+                <div class="form-group">
+                    <label for="documento">Documento:</label>
+                    <input type="number" name="documento" class="form-control" th:field="*{documento}" placeholder="Digite su Documento"
+                         required minlength="8" maxlength="10">
+                </div>
+
+                <!-- Fecha de la venta -->
+                <div class="form-group">
+                    <label for="correo">Correo:</label>
+                    <input type="email" name="correo" class="form-control" th:field="*{correo}" placeholder="Digite su Correo" required >
+                </div>
+
+                <div class="form-group">
+                  <label for="telefono">Telefono:</label>
+                  <input type="number" name="telefono" class="form-control" th:field="*{telefono}" placeholder="Digite su Telefono Celular"
+                  required minlength="8" maxlength="10">
+              </div>
+
+              <div class="form-group">
+                  <label for="contraseña">Contraseña:</label>
+                  <input type="password" name="contraseña" class="form-control" th:field="*{contraseña}" placeholder="Digite su Contraseña"
+                         required minlength="6" maxlength="10">
+              </div>
+
+
+                <!-- Botón de envío -->
+                <button type="submit" class="btn btn-success">Registrar</button>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="contactenos">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-title">Contactos</span>
+                <div class="contact-info">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>jaiderniko2@gmail.com</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>3105562981</span>
+                </div>
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="message-form">
+                    <h3>Envía un mensaje</h3>
+                    <form id="messageForm">
+                        <input type="email" id="email" placeholder="Ingresa tu email" required>
+                        <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <span>2024 - © PureGlow</span>
+        </div>
+    </footer>
+
+    <!-- SweetAlert2 Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+            
+            // Muestra la alerta de SweetAlert2
+            Swal.fire({
+                title: 'Mensaje enviado',
+                text: 'Tu mensaje ha sido enviado exitosamente. Pronto te responderemos.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>
+    <script>
+        // Obtener el nombre del usuario desde el localStorage
+        let usuarioData = localStorage.getItem('user');
+
+        if (usuarioData) {
+            let usuario = JSON.parse(usuarioData);
+
+            // Verifica si tiene el objeto user y extrae el nombre
+            if (usuario.user && usuario.user.name) {
+                document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+            }
+        }
+
+        // Evento para cerrar sesión
+        document.getElementById('cerrarSesion').addEventListener('click', function() {
+            localStorage.removeItem('user'); // Eliminar usuario del localStorage
+            window.location.href = '../index.html'; // Redirigir a la página de login
+        });
+    </script>
+</body>
+</html>

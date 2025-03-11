@@ -1,0 +1,191 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="utf-8">
+    <title>Registrar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/logo.png">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/estilosFormulario.css">
+
+
+    <!-- Fuentes Remixes y FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<div class="container text-center">
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">PureGlow</label>
+        <form style="display: inline;">
+            <button type="button" class="btn logout-button" onclick="window.location.href='/login.html'">
+                Iniciar Sesión &nbsp;<i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+            <button type="button" class="btn logout-button" onclick="window.location.href='/index.html'">
+                Atrás &nbsp;<i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </form>
+    </nav>
+
+    <!-- Formulario para registrar un cliente -->
+    <div class="form-container">
+        <h2> Registrarse como cliente </h2><br>
+
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Digite su Nombre"
+                       required minlength="2" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" class="form-control" placeholder="Digite su Apellido"
+                       required minlength="2" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" class="form-control" placeholder="Digite su Correo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" class="form-control" placeholder="Digite su Dirección" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="number" id="telefono" class="form-control" placeholder="Digite su Teléfono Celular"
+                       required minlength="8" maxlength="10">
+            </div>
+
+            <div class="form-group">
+            <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" class="form-control" placeholder="Digite su Contraseña"
+                       required minlength="6" maxlength="10">
+            </div>
+
+            <!-- Botón de envío -->
+            <button type="submit" class="btn btn-success">Registrar</button>
+        </form>
+    </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="contactenos">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-title">Contactos</span>
+                <div class="contact-info">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>jaiderniko2@gmail.com</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>3105562981</span>
+                </div>
+                <div class="social-media">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="message-form">
+                    <h3>Envía un mensaje</h3>
+                    <form id="messageForm">
+                        <input type="email" id="email" placeholder="Ingresa tu email" required>
+                        <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy">
+            <span>2024 - © PureGlow</span>
+        </div>
+    </footer>
+
+    <!-- SweetAlert2 Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("registroForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe por defecto
+
+            let data = {
+                data: {
+                    name: document.getElementById("nombre").value,
+                    last_name: document.getElementById("apellido").value,
+                    email: document.getElementById("correo").value,
+                    phone_number: document.getElementById("telefono").value,
+                    password: document.getElementById("contraseña").value,
+                    address: document.getElementById('direccion').value
+                }
+            };
+
+            fetch("/client/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text().then(text => ({ status: response.status, text })))
+            .then(result => {
+                if (result.status === 200) {
+                    Swal.fire({
+                        title: "Registro exitoso",
+                        text: result.text,
+                        icon: "success",
+                        confirmButtonText: "Aceptar"
+                    }).then(() => {
+                        window.location.href = "/index.html"; // Redirige al inicio
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error en el registro",
+                        text: result.text,
+                        icon: "error",
+                        confirmButtonText: "Intentar de nuevo"
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: "Hubo un problema con el registro. Inténtalo nuevamente.",
+                    icon: "error",
+                    confirmButtonText: "Aceptar"
+                });
+                console.error("Error en la solicitud:", error);
+            });
+        });
+    });
+</script>
+</html>

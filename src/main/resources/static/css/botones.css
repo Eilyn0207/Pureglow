@@ -1,0 +1,74 @@
+/* 🔹 Contenedor de los botones */
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+/* 🔹 Botones generales */
+.add, .nuton2 {
+    padding: 1dvh 8px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* 🔹 Botón Editar */
+.edit-btn {
+    background-color: #b0fffb;
+    color: white;
+}
+.edit-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Botón Eliminar */
+.delete-btn {
+    background-color: #ff6b6b;
+    color: white;
+}
+.delete-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 Botón Agregar */
+.add-btn {
+    background-color: #28a745;
+    color: white;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+.add-btn:hover {
+    background-color: #218838;
+}
+
+/* 🔹 Botón Exportar PDF */
+.export-btn {
+    background-color: #dc3545;
+    color: white;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+.export-btn:hover {
+    background-color: #c82333;
+}
+
+/* 🔹 Iconos dentro de los botones */
+.add i, .nuton2 i {
+    font-size: 16px;
+}

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>PureGlow - Ventas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e37224b415.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    /* Estilos para la tabla de citas */
+    #salesTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 16px;
+        text-align: center; /* Alineación central por defecto */
+    }
+
+    #salesTable th,
+    #salesTable td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+        text-align: center; /* Asegura la alineación central */
+    }
+
+    #salesTable th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    #salesTable tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    #salesTable tbody tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    #salesTable tbody td[colspan="3"] {
+        text-align: center;
+        font-style: italic;
+        color: #888;
+    }
+
+    /* Estilos adicionales para el contenedor del formulario */
+    .form-container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<body class="body">
+<nav>
+    <!-- Logo -->
+    <img src="img/logo.png" alt="Logo" style="width: 50px; height: auto; margin:0px 15px">
+
+    <!-- Nombre de la marca -->
+    <h2 style="margin:0px 15px">Pure Glow</h2>
+
+    <!-- Nombre del usuario -->
+    <span style="margin:0px 15px" id="nombreUsuario"> Hola, Invitado! </span>
+
+    <!-- Botón de Cerrar Sesión -->
+    <button id="cerrarSesion" class="btn logout-button">
+        Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+</nav>
+
+<section class="header">
+    <div class="logo">
+        <h2> <span>Administrador</span></h2>
+    </div>
+</section>
+
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="/adminDashboard.html">
+                    <span class="icon icon-1"><i class="ri-dashboard-fill"></i></span>
+                    <span class="sidebar--item">Menú</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminProductos.html">
+                    <span class="icon icon-2"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Productos</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminCitas.html">
+                    <span class="icon icon-2"><i class="ri-calendar-fill"></i></span>
+                    <span class="sidebar--item">Citas</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminUsers.html">
+                    <span class="icon icon-2"><i class="ri-user-fill"></i></span>
+                    <span class="sidebar--item">Usuarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminVentas.html">
+                    <span class="icon icon-2"><i class="ri-money-dollar-circle-line"></i></span>
+                    <span class="sidebar--item">Ventas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="form-container">
+        <h2>Ventas</h2>
+        <table id="salesTable">
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Cliente</th>
+                <th>Vendedor</th>
+                <th>Detalles</th>
+            </tr>
+            </thead>
+            <tbody id="salesBody">
+            <tr>
+                <td colspan="5">Cargando datos...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<footer id="contactenos">
+    <div class="footer-content">
+        <div class="footer-left">
+            <span class="footer-title">Contactos</span>
+            <div class="contact-info">
+                <i class="fa-solid fa-envelope"></i>
+                <span>jaiderniko2@gmail.com</span>
+            </div>
+            <div class="contact-info">
+                <i class="fa-solid fa-phone"></i>
+                <span>3105562981</span>
+            </div>
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://x.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-x"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/3105562981" target="_blank" class="social-icon">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <div class="message-form">
+                <h3>Envía un mensaje</h3>
+                <form id="messageForm">
+                    <input type="email" id="email" placeholder="Ingresa tu email" required>
+                    <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">
+        <span>2024 - © PureGlow</span>
+    </div>
+    <div id="saleDetailsModal" class="modal" style="display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+        <div class="modal-content" style="background-color: #fff; margin: 10% auto; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 80%; max-width: 600px; position: relative;">
+            <span class="close" style="position: absolute; top: 10px; right: 15px; font-size: 30px; font-weight: bold; cursor: pointer; color: #333;">&times;</span>
+            <h2 id="modalTitle" style="text-align: center; margin-bottom: 25px; color: #333;">Detalles de la Venta</h2>
+            <div id="modalBody" style="line-height: 1.6; color: #555;">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showSaleDetails(id) {
+        fetch(`/sale/findId/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener los detalles de la venta.");
+                }
+                return response.json();
+            })
+            .then(saleDetails => {
+                let formattedDate = new Date(saleDetails.date).toLocaleDateString();
+                let productList = "<ul>";
+                if (saleDetails.saleDetails && Array.isArray(saleDetails.saleDetails)) {
+                    saleDetails.saleDetails.forEach(detail => {
+                        productList += `<li>${detail.product.name} - Cantidad: ${detail.amount} - Subtotal: ${detail.subTotal}</li>`;
+                    });
+                } else {
+                    productList += "<li>No hay productos en esta venta.</li>";
+                }
+                document.getElementById("modalBody").innerHTML = `
+                    <p><strong>Fecha:</strong> ${formattedDate}</p>
+                    <p><strong>Cliente:</strong> ${saleDetails.client.user.name + " " + saleDetails.client.user.lastName}</p>
+                    <p><strong>Vendedor:</strong> ${saleDetails.seller.user.name + " " + saleDetails.seller.user.lastName}</p>
+                    <p><strong>Productos:</strong> ${productList}</p>
+                    <p><strong>Total:</strong> ${saleDetails.total}</p>
+                `;
+                document.getElementById("saleDetailsModal").style.display = "block";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error al obtener los detalles de la venta.");
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchSales(); // Llama a la función para obtener todas las ventas
+    });
+
+    function fetchSales() {
+        fetch(`/sale/all`) // Cambia la URL para obtener todas las ventas
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener las ventas.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                renderSales(data); // Renderiza todas las ventas
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("salesBody").innerHTML =
+                    `<tr><td colspan="5">No se encontraron las ventas.</td></tr>`;
+            });
+    }
+
+    function renderSales(sales) {
+        let tableBody = document.getElementById("salesBody");
+        tableBody.innerHTML = "";
+
+        if (sales.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5">No hay ventas registradas</td></tr>`;
+            return;
+        }
+
+        sales.forEach(sale => {
+            let formattedDate = new Date(sale.date).toLocaleDateString();
+            let row = `<tr>
+                <td>${formattedDate}</td>
+                <td>${sale.total}</td>
+                <td>${sale.client.user.name + " " + sale.client.user.lastName}</td>
+                <td>${sale.seller.user.name + " " + sale.seller.user.lastName}</td>
+                <td>
+                    <button class="btn" onclick="showSaleDetails(${sale.id})">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    let modal = document.getElementById("saleDetailsModal");
+    let closeBtn = document.querySelector("#saleDetailsModal .close");
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    let usuarioData = localStorage.getItem('user');
+
+    if (usuarioData) {
+        let usuario = JSON.parse(usuarioData);
+
+        if (usuario.user && usuario.user.name) {
+            document.getElementById('nombreUsuario').textContent = `    Hola, ${usuario.user.name}!`;
+        }
+    }
+
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+        localStorage.removeItem('user');
+        window.location.href = '../index.html';
+    });
+</script>
+</body>
+</html>
